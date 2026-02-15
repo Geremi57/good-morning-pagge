@@ -1,59 +1,122 @@
-# GoodMorning
+# Good Morning - Full-stack Submission
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.2.
+## 👋 About Me
+Hi! I’m **Geremi Wanga** (aka `Geezburgerrs`) a passionate full-stack developer who loves building interactive web experiences.  
 
-## Development server
+I built this submission as part of the **Tann Mann Foundation fundraising project** test.  
+It’s a **full Angular frontend with Node.js backend** that saves form submissions to a PostgreSQL database.
 
-To start a local development server, run:
+---
 
-```bash
-ng serve
-```
+## 🚀 Project Features
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- Responsive Angular form that collects:
+  - Name
+  - Email address
+  - Phone number
+- Frontend form validation:
+  - Required fields
+  - Valid email format
+  - Phone number pattern validation
+- Node.js backend (Express) that saves submissions to PostgreSQL
+- Auto-create database table if it doesn’t exist
+- Easy to configure via environment variables
+- **One-command runner script** to start backend + frontend
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## 🖥️ Tech Stack
 
-```bash
-ng generate component component-name
-```
+![Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express-000000?style=for-the-badge&logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-336791?style=for-the-badge&logo=postgresql&logoColor=white)
+![TailwindCSS](https://img.shields.io/badge/TailwindCSS-06B6D4?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+---
 
-```bash
-ng generate --help
-```
+## ⚙️ Setup Instructions
 
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+### 1️ Clone the repo
 
 ```bash
-ng e2e
-```
+git clone https://github.com/Geremi57/good-morning-pagge.git
+cd good-morning-pagge
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+2️ PostgreSQL Setup
 
-## Additional Resources
+Make sure PostgreSQL is installed and running locally.
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Connect as postgres:
+
+sudo -u postgres psql
+
+
+Create user (if not exists):
+
+CREATE USER geremi WITH PASSWORD 'your_postgres_password';
+
+
+Create database (if not exists):
+
+CREATE DATABASE tannmann;
+
+
+The Node backend will automatically create the submissions table when it starts.
+
+3️ Backend Setup
+cd server
+npm install
+
+Create .env file in backend/:
+DB_USER=geremi
+DB_PASSWORD=your_postgres_password
+DB_HOST=localhost
+DB_NAME=tannmann
+DB_PORT=5432
+PORT=3000
+
+4️ Frontend Setup
+cd good-morning
+npm install
+
+5️ Start Everything with Shell Script
+
+From the root folder:
+
+./run.sh
+
+
+Node backend → http://localhost:3000
+
+Angular frontend → http://localhost:4200
+
+Logs saved to:
+
+server/backend.log
+
+good-morning/frontend.log
+
+Optional: Stop both processes
+./stop.sh
+
+6️ Testing
+
+Open frontend: http://localhost:4200
+
+Fill out the form and submit
+
+Backend console logs inserted row, e.g.:
+
+{
+  "id": 1,
+  "name": "Geremi Wanga",
+  "email": "wangageremi725@gmail.com",
+  "phone": "+254712345678"
+}
+
+
+Verify in PostgreSQL:
+
+\c tannmann
+SELECT * FROM submissions;
