@@ -35,40 +35,54 @@ It’s a **full Angular frontend with Node.js backend** that saves form submissi
 
 ---
 
-## ⚙️ Setup Instructions
+# ⚙️ Setup Instructions
 
-### 1️ Clone the repo
-
+## 1️⃣ Clone the repo
 ```bash
 git clone https://github.com/Geremi57/good-morning-pagge.git
 cd good-morning-pagge
 
-2️ PostgreSQL Setup
+2️⃣ PostgreSQL Setup
 
 Make sure PostgreSQL is installed and running locally.
 
-Connect as postgres:
+Connect as the postgres superuser:
 
 sudo -u postgres psql
 
-
-Create user (if not exists):
+Create the Node.js user (if it doesn’t exist):
 
 CREATE USER geremi WITH PASSWORD 'your_postgres_password';
 
-
-Create database (if not exists):
+Create the database (if it doesn’t exist):
 
 CREATE DATABASE tannmann;
 
+Connect to the database:
 
-The Node backend will automatically create the submissions table when it starts.
+\c tannmann
 
-3️ Backend Setup
+Create the submissions table with sequence privileges:
+
+CREATE TABLE IF NOT EXISTS submissions (
+  id SERIAL PRIMARY KEY,
+  name TEXT NOT NULL,
+  email TEXT NOT NULL,
+  phone TEXT NOT NULL
+);
+
+-- Grant privileges to Node user
+GRANT ALL PRIVILEGES ON TABLE submissions TO geremi;
+GRANT ALL PRIVILEGES ON SEQUENCE submissions_id_seq TO geremi;
+
+✅ This ensures your Node backend can insert rows into submissions without errors.
+3️⃣ Backend Setup
+
 cd server
 npm install
 
-Create .env file in backend/:
+Create a .env file in server/:
+
 DB_USER=geremi
 DB_PASSWORD=your_postgres_password
 DB_HOST=localhost
@@ -76,37 +90,38 @@ DB_NAME=tannmann
 DB_PORT=5432
 PORT=3000
 
-4️ Frontend Setup
+4️⃣ Frontend Setup
+
 cd good-morning
 npm install
 
-5️ Start Everything with Shell Script
+5️⃣ Start Everything with Shell Script
 
-From the root folder:
+From the project root:
 
 ./run.sh
 
+    Node backend: http://localhost:3000
 
-Node backend → http://localhost:3000
+    Angular frontend: http://localhost:4200
 
-Angular frontend → http://localhost:4200
+Logs are saved to:
 
-Logs saved to:
+    server/backend.log
 
-server/backend.log
+    good-morning/frontend.log
 
-good-morning/frontend.log
+Stop both processes:
 
-Optional: Stop both processes
 ./stop.sh
 
-6️ Testing
+6️⃣ Testing
 
-Open frontend: http://localhost:4200
+Open the frontend: http://localhost:4200
 
-Fill out the form and submit
+Fill out the form and submit.
 
-Backend console logs inserted row, e.g.:
+Backend console logs the inserted row, e.g.:
 
 {
   "id": 1,
@@ -114,7 +129,6 @@ Backend console logs inserted row, e.g.:
   "email": "wangageremi725@gmail.com",
   "phone": "+254712345678"
 }
-
 
 Verify in PostgreSQL:
 
