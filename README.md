@@ -1,7 +1,7 @@
 # Good Morning - Full-stack Submission
 
 ## 👋 About Me
-Hi! I’m **Geremi Wanga** (aka `Geezburgerrs`) a passionate full-stack developer who loves building interactive web experiences.  
+Hi! I’m **Geremi Wanga** (aka `Geez`) a passionate full-stack developer who loves building interactive web experiences.  
 
 I built this submission as part of the **Tann Mann Foundation fundraising project** test.  
 It’s a **full Angular frontend with Node.js backend** that saves form submissions to a PostgreSQL database.
