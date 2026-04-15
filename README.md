@@ -123,12 +123,7 @@ Fill out the form and submit.
 
 Backend console logs the inserted row, e.g.:
 
-{
-  "id": 1,
-  "name": "Geremi Wanga",
-  "email": "wangageremi725@gmail.com",
-  "phone": "+254712345678"
-}
+
 
 Verify in PostgreSQL:
 
